@@ -12,11 +12,11 @@ and the Flutter guide for
 -->
 
 
-# Alert Dialog Box
+# Rounded Text Form Field
 
-```alert_dialog_box```  A Flutter library for rounded text form field with custom design and decoration.  ✨
+```rounded_text_form_field```  A Flutter library for rounded text form field with custom design and decoration with support for labels, hints, validation, and more. This widget simplifies the process of creating and customizing text input fields in your Flutter applications.  ✨
 
-It's support some type of image decoration such as [ sizeOfImage, isCircular, isCircularBorder, isCurve or isCurveBorder], etc.
+It's support some type of image decoration such as [ TextInputAction, TextEditingController, HintText, Validator, Enabled or ReadOnly], etc.
 
 
 ## Installation
@@ -87,9 +87,36 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text(widget.title),
         ),
         body: Center(
-          child: Column(children: [
-
-          ],),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                const SizedBox(height: 16),
+                const Text(
+                  "Name",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                RoundedTextFormField(
+                  textInputAction: TextInputAction.done,
+                  controller: nameTextField,
+                  hintText: "Please enter your name",
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Please enter your name";
+                    } else if (value.length < 4) {
+                      return "Please enter valid name";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
         )
     );
   }
@@ -101,13 +128,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
 #### Basic
 
-| Parameter       | Default | Description                          | Required |
-|-----------------|:--------|:-------------------------------------|:--------:|
-| url             | -       | Image base url.                      |   True   |
-| curveValue      | -       | Curve value if curve is set to true. |  false   |
-| borderColor     | -       | Image border color.                  |  false   |
-| radius          | -       | Circle avatar radius.                |  false   |
-| borderThickness | -       | Image border thickness               |  false   |
-| isCircular      | false   | Set true if show circular box        |  false   |
-| isCurve         | false   | Image curve flag                     |  false   |
-| isCurveBorder   | false   | Image curve wit border flag          |  false   |
+| Parameter       | Default | Description                       | Required |
+|-----------------|:--------|:----------------------------------|:--------:|
+| controller      | -       | Text Editing Controller.          |   True   |
+| hintText        | -       | Text form field hint text .       |   True   |
+| validator       | -       | Text form field validator.        |  false   |
+| textInputAction | -       | Keyboard input action.            |  false   |
+| enabled         | true    | To enable and disable text field. |  false   |
+| readOnly        | false   | Set read only status.             |  false   |
+| onPressed       | -       | OnTap call back.                  |  false   |
+| maxLines        | 1       | Text form field max line.         |  false   |
